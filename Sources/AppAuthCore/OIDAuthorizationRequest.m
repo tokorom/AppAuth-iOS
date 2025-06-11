@@ -369,6 +369,11 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
   if (_codeChallengeMethod) {
     [query addParameter:kCodeChallengeMethodKey value:_codeChallengeMethod];
   }
+  if (_resource) {
+    for (NSString *value in _resource) {
+      [query addParameter:kResource value:value];
+    }
+  }
 
   // Construct the URL:
   return [query URLByReplacingQueryInURL:_configuration.authorizationEndpoint];
