@@ -170,6 +170,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
                   scopes:(nullable NSArray<NSString *> *)scopes
              redirectURL:(NSURL *)redirectURL
             responseType:(NSString *)responseType
+                resource:(nullable NSArray<NSString *> *)resource
     additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters {
 
   // generates PKCE code verifier and challenge
@@ -187,7 +188,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
                         codeVerifier:codeVerifier
                        codeChallenge:codeChallenge
                  codeChallengeMethod:OIDOAuthorizationRequestCodeChallengeMethodS256
-                            resource:nil
+                            resource:resource
                 additionalParameters:additionalParameters];
 }
 
@@ -204,6 +205,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
                               scopes:scopes
                          redirectURL:redirectURL
                         responseType:responseType
+                            resource:nil
                 additionalParameters:additionalParameters];
 }
 
@@ -214,6 +216,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
               redirectURL:(NSURL *)redirectURL
              responseType:(NSString *)responseType
                     nonce:(nullable NSString *)nonce
+                resource:(nullable NSArray<NSString *> *)resource
     additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters {
   // generates PKCE code verifier and challenge
   NSString *codeVerifier = [[self class] generateCodeVerifier];
@@ -230,7 +233,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
                         codeVerifier:codeVerifier
                        codeChallenge:codeChallenge
                  codeChallengeMethod:OIDOAuthorizationRequestCodeChallengeMethodS256
-                            resource:nil
+                            resource:resource
                 additionalParameters:additionalParameters];
 }
 

@@ -69,6 +69,7 @@
                               scopes:scopes
                          redirectURL:[[NSURL alloc] initWithString:@""]
                         responseType:OIDResponseTypeCode
+                            resource:nil
                 additionalParameters:additionalParameters];
 }
 
