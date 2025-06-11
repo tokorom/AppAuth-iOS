@@ -184,6 +184,14 @@ extern NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256;
                     nonce:(nullable NSString *)nonce
                  resource:(nullable NSArray<NSString *> *)resource
      additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters;
+- (instancetype)
+    initWithConfiguration:(OIDServiceConfiguration *)configuration
+                 clientId:(NSString *)clientID
+                   scopes:(nullable NSArray<NSString *> *)scopes
+              redirectURL:(NSURL *)redirectURL
+             responseType:(NSString *)responseType
+                    nonce:(nullable NSString *)nonce
+     additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters;
 
 /*! @brief Creates an authorization request with opinionated defaults (a secure @c state, @c nonce,
         and PKCE with S256 as the @c code_challenge_method).
@@ -205,6 +213,14 @@ extern NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256;
               redirectURL:(NSURL *)redirectURL
              responseType:(NSString *)responseType
                  resource:(nullable NSArray<NSString *> *)resource
+     additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters;
+- (instancetype)
+    initWithConfiguration:(OIDServiceConfiguration *)configuration
+                 clientId:(NSString *)clientID
+             clientSecret:(nullable NSString *)clientSecret
+                   scopes:(nullable NSArray<NSString *> *)scopes
+              redirectURL:(NSURL *)redirectURL
+             responseType:(NSString *)responseType
      additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters;
 
 /*! @brief Designated initializer.
@@ -242,6 +258,19 @@ extern NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256;
                  resource:(nullable NSArray<NSString *> *)resource
      additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters
     NS_DESIGNATED_INITIALIZER;
+- (instancetype)
+    initWithConfiguration:(OIDServiceConfiguration *)configuration
+                 clientId:(NSString *)clientID
+             clientSecret:(nullable NSString *)clientSecret
+                    scope:(nullable NSString *)scope
+              redirectURL:(nullable NSURL *)redirectURL
+             responseType:(NSString *)responseType
+                    state:(nullable NSString *)state
+                    nonce:(nullable NSString *)nonce
+             codeVerifier:(nullable NSString *)codeVerifier
+            codeChallenge:(nullable NSString *)codeChallenge
+      codeChallengeMethod:(nullable NSString *)codeChallengeMethod
+     additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters;
 
 /*! @brief Constructs the request URI by adding the request parameters to the query component of the
         authorization endpoint URI using the "application/x-www-form-urlencoded" format.

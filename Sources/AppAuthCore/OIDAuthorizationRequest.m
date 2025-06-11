@@ -162,6 +162,33 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
   }
   return self;
 }
+- (instancetype)initWithConfiguration:(OIDServiceConfiguration *)configuration
+                clientId:(NSString *)clientID
+            clientSecret:(nullable NSString *)clientSecret
+                   scope:(nullable NSString *)scope
+             redirectURL:(NSURL *)redirectURL
+            responseType:(NSString *)responseType
+                   state:(nullable NSString *)state
+                   nonce:(nullable NSString *)nonce
+            codeVerifier:(nullable NSString *)codeVerifier
+           codeChallenge:(nullable NSString *)codeChallenge
+     codeChallengeMethod:(nullable NSString *)codeChallengeMethod
+    additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters
+{
+  return [self initWithConfiguration:configuration
+                            clientId:clientID
+                        clientSecret:clientSecret
+                               scope:scope
+                         redirectURL:redirectURL
+                        responseType:responseType
+                               state:state
+                               nonce:nonce
+                        codeVerifier:codeVerifier
+                       codeChallenge:codeChallenge
+                 codeChallengeMethod:codeChallengeMethod
+                            resource:nil
+                additionalParameters:additionalParameters];
+}
 
 - (instancetype)
    initWithConfiguration:(OIDServiceConfiguration *)configuration
@@ -189,6 +216,33 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
                        codeChallenge:codeChallenge
                  codeChallengeMethod:OIDOAuthorizationRequestCodeChallengeMethodS256
                             resource:resource
+                additionalParameters:additionalParameters];
+}
+- (instancetype)
+   initWithConfiguration:(OIDServiceConfiguration *)configuration
+                clientId:(NSString *)clientID
+            clientSecret:(NSString *)clientSecret
+                  scopes:(nullable NSArray<NSString *> *)scopes
+             redirectURL:(NSURL *)redirectURL
+            responseType:(NSString *)responseType
+    additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters {
+
+  // generates PKCE code verifier and challenge
+  NSString *codeVerifier = [[self class] generateCodeVerifier];
+  NSString *codeChallenge = [[self class] codeChallengeS256ForVerifier:codeVerifier];
+
+  return [self initWithConfiguration:configuration
+                            clientId:clientID
+                        clientSecret:clientSecret
+                               scope:[OIDScopeUtilities scopesWithArray:scopes]
+                         redirectURL:redirectURL
+                        responseType:responseType
+                               state:[[self class] generateState]
+                               nonce:[[self class] generateState]
+                        codeVerifier:codeVerifier
+                       codeChallenge:codeChallenge
+                 codeChallengeMethod:OIDOAuthorizationRequestCodeChallengeMethodS256
+                            resource:nil
                 additionalParameters:additionalParameters];
 }
 
@@ -234,6 +288,32 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
                        codeChallenge:codeChallenge
                  codeChallengeMethod:OIDOAuthorizationRequestCodeChallengeMethodS256
                             resource:resource
+                additionalParameters:additionalParameters];
+}
+- (instancetype)
+    initWithConfiguration:(OIDServiceConfiguration *)configuration
+                 clientId:(NSString *)clientID
+                   scopes:(nullable NSArray<NSString *> *)scopes
+              redirectURL:(NSURL *)redirectURL
+             responseType:(NSString *)responseType
+                    nonce:(nullable NSString *)nonce
+    additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters {
+  // generates PKCE code verifier and challenge
+  NSString *codeVerifier = [[self class] generateCodeVerifier];
+  NSString *codeChallenge = [[self class] codeChallengeS256ForVerifier:codeVerifier];
+
+  return [self initWithConfiguration:configuration
+                            clientId:clientID
+                        clientSecret:nil
+                               scope:[OIDScopeUtilities scopesWithArray:scopes]
+                         redirectURL:redirectURL
+                        responseType:responseType
+                               state:[[self class] generateState]
+                               nonce:nonce
+                        codeVerifier:codeVerifier
+                       codeChallenge:codeChallenge
+                 codeChallengeMethod:OIDOAuthorizationRequestCodeChallengeMethodS256
+                            resource:nil
                 additionalParameters:additionalParameters];
 }
 
