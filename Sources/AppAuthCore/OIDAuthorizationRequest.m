@@ -71,6 +71,8 @@ static NSString *const kCodeChallengeKey = @"code_challenge";
  */
 static NSString *const kCodeChallengeMethodKey = @"code_challenge_method";
 
+static NSString *const kResource = @"resource";
+
 /*! @brief Key used to encode the @c additionalParameters property for
         @c NSSecureCoding
  */
@@ -133,6 +135,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
             codeVerifier:(nullable NSString *)codeVerifier
            codeChallenge:(nullable NSString *)codeChallenge
      codeChallengeMethod:(nullable NSString *)codeChallengeMethod
+                resource:(nullable NSArray<NSString *> *)resource
     additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters
 {
   self = [super init];
@@ -152,6 +155,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
     _codeVerifier = [codeVerifier copy];
     _codeChallenge = [codeChallenge copy];
     _codeChallengeMethod = [codeChallengeMethod copy];
+    _resource = [resource copy];
 
     _additionalParameters =
         [[NSDictionary alloc] initWithDictionary:additionalParameters copyItems:YES];
@@ -183,6 +187,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
                         codeVerifier:codeVerifier
                        codeChallenge:codeChallenge
                  codeChallengeMethod:OIDOAuthorizationRequestCodeChallengeMethodS256
+                            resource:nil
                 additionalParameters:additionalParameters];
 }
 
@@ -225,6 +230,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
                         codeVerifier:codeVerifier
                        codeChallenge:codeChallenge
                  codeChallengeMethod:OIDOAuthorizationRequestCodeChallengeMethodS256
+                            resource:nil
                 additionalParameters:additionalParameters];
 }
 
@@ -260,6 +266,8 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
       [aDecoder decodeObjectOfClass:[NSString class] forKey:kCodeChallengeKey];
   NSString *codeChallengeMethod =
       [aDecoder decodeObjectOfClass:[NSString class] forKey:kCodeChallengeMethodKey];
+  NSArray<NSString *> *resource =
+      [aDecoder decodeObjectOfClass:[NSArray<NSString *> class] forKey:kResource];
   NSSet *additionalParameterCodingClasses = [NSSet setWithArray:@[
     [NSDictionary class],
     [NSString class]
@@ -279,6 +287,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
                         codeVerifier:codeVerifier
                        codeChallenge:codeChallenge
                  codeChallengeMethod:codeChallengeMethod
+                            resource:resource
                 additionalParameters:additionalParameters];
   return self;
 }
@@ -295,6 +304,7 @@ NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256 = @"S256";
   [aCoder encodeObject:_codeVerifier forKey:kCodeVerifierKey];
   [aCoder encodeObject:_codeChallenge forKey:kCodeChallengeKey];
   [aCoder encodeObject:_codeChallengeMethod forKey:kCodeChallengeMethodKey];
+  [aCoder encodeObject:_resource forKey:kResource];
   [aCoder encodeObject:_additionalParameters forKey:kAdditionalParametersKey];
 }
 

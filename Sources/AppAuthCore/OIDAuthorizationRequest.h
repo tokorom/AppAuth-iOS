@@ -129,6 +129,8 @@ extern NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256;
  */
 @property(nonatomic, readonly, nullable) NSString *codeChallengeMethod;
 
+@property(nonatomic, readonly) NSArray<NSString *> *resource;
+
 /*! @brief The client's additional authorization parameters.
     @see https://tools.ietf.org/html/rfc6749#section-3.1
  */
@@ -235,6 +237,7 @@ extern NSString *const OIDOAuthorizationRequestCodeChallengeMethodS256;
              codeVerifier:(nullable NSString *)codeVerifier
             codeChallenge:(nullable NSString *)codeChallenge
       codeChallengeMethod:(nullable NSString *)codeChallengeMethod
+                 resource:(nullable NSArray<NSString *> *)resource
      additionalParameters:(nullable NSDictionary<NSString *, NSString *> *)additionalParameters
     NS_DESIGNATED_INITIALIZER;
 
