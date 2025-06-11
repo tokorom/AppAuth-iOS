@@ -53,6 +53,7 @@
                          codeVerifier:codeVerifier
                         codeChallenge:codeChallenge
                   codeChallengeMethod:codeChallengeMethod
+                             resource: nil
                  additionalParameters:additionalParameters];
 }
 
